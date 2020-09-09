@@ -5,33 +5,7 @@
 </head>
 <body>
 
-<h1 id="title" class="text-center">Shaders</h1>
-
-<div class="container">
-  <div class="row">
-    <div class="col-4 mr-auto ml-auto">
-      <div id="container1"></div>
-    </div>
-    <div class="col-4 mr-auto ml-auto">
-      <div id="container2"></div>
-    </div>
-    <div class="col-4 mr-auto ml-auto">
-      <div id="container3"></div>
-    </div>
-  </div>
-  <p></p>
-  <div class="row">
-    <div class="col-4 mr-auto ml-auto">
-      <div id="container4"></div>
-    </div>
-    <div class="col-4 mr-auto ml-auto">
-      <div id="container5"></div>
-    </div>
-    <div class="col-4 mr-auto ml-auto">
-      <div id="container6"></div>
-    </div>
-  </div>
-</div>
+<div id="container"></div>
 
 <script src="https://threejs.org/build/three.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -39,14 +13,17 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script type="module">
-import * as noise from './noise.js';
+import * as noise  from './noise.js';
 import * as flower from './flower.js';
-noise.init('container1', true, false, false);
-noise.init('container2', false, true, false);
-noise.init('container3', false, false, true);
-flower.init('container4', 20.0, 10.0);
-flower.init('container5', 20.0, 20.0);
-flower.init('container6', 50.0, 20.0);
+
+const urlParams = new URLSearchParams(window.location.search);
+const fun = urlParams.get('fun');
+
+//noise.init('container', true, false, false);
+//noise.init('container', false, true, false);
+//noise.init('container', false, false, true);
+//flower.init('container', 20.0, 10.0);
+eval(fun);
 </script>
 
 </body>
