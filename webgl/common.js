@@ -4,6 +4,8 @@ export function init(container, fragmentShader, uniforms) {
     env.camera.position.z = 1;
     env.scene = new THREE.Scene();
     
+    var containerElement = document.getElementById(container);
+
     var vertexShader = `
         uniform float time;
         void main()	{
@@ -11,10 +13,7 @@ export function init(container, fragmentShader, uniforms) {
         }`;
         
     env.uniforms = uniforms;
-
-    //env.uniforms.resolution = { type: "v2", value: new THREE.Vector2() };
-    //env.uniforms.resolution.value.x = container.clientWidth;
-    //env.uniforms.resolution.value.y = container.clientWidth;
+    env.uniforms.resolution = { type: "v2", value: new THREE.Vector2(containerElement.clientWidth, containerElement.clientWidth) };
 
     var material = new THREE.ShaderMaterial({
         uniforms: env.uniforms,
@@ -28,7 +27,6 @@ export function init(container, fragmentShader, uniforms) {
     env.renderer = new THREE.WebGLRenderer();
     env.renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
 
-    var containerElement = document.getElementById(container);
     containerElement.appendChild(env.renderer.domElement);
 
     env.renderer.setSize(containerElement.clientWidth, containerElement.clientWidth);
@@ -38,4 +36,12 @@ export function init(container, fragmentShader, uniforms) {
 
     env.startTime = Date.now();
     return env;
+}
+
+export function animate(env) {
+    env.renderer.render(env.scene, env.camera);
+
+    requestAnimationFrame(function() {
+        animate(env);
+    });
 }
